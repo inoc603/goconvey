@@ -288,3 +288,14 @@ func (ctx *context) assertionReport(r *reporting.AssertionResult) {
 		panic(failureHalt)
 	}
 }
+
+/////////////////////////////////// Reporter ///////////////////////////////////
+
+type ConfigurableReporter interface {
+	// SetReporter sets the reporter for a context
+	SetReporter(r reporting.Reporter)
+}
+
+func (ctx *context) SetReporter(r reporting.Reporter) {
+	ctx.reporter = r
+}

@@ -39,6 +39,8 @@ func buildReporter() reporting.Reporter {
 	switch {
 	case testReporter != nil:
 		return testReporter
+	case customReporter != nil:
+		return customReporter
 	case json || selectReporter == "json":
 		return reporting.BuildJsonReporter()
 	case silent || selectReporter == "silent":
@@ -58,7 +60,14 @@ var (
 
 	// only set by internal tests
 	testReporter reporting.Reporter
+
+	customReporter reporting.Reporter
 )
+
+// SetGlobalReporter sets a global reporter. This overwrites all other reporter settings.
+func SetGlobalReporter(r reporting.Reporter) {
+	customReporter = r
+}
 
 var (
 	json   bool
